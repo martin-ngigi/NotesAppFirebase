@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "577425908572",
+    "project_id": "fir-app-with-mvvm-dagger",
+    "storage_bucket": "fir-app-with-mvvm-dagger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577425908572:android:b2bbfdca50ef0c79f41799",
+        "android_client_info": {
+          "package_name": "com.example.firebaseappwithmvvmdaggerhilt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577425908572-rcke0hoi9a2ljus0ojv654tnuu0ujjsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNfEXk8w5g5LVw0rukoEje9-lI2TiCzGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577425908572-rcke0hoi9a2ljus0ojv654tnuu0ujjsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577425908572:android:46390eda0ee157e4f41799",
+        "android_client_info": {
+          "package_name": "com.example.notesappfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577425908572-rcke0hoi9a2ljus0ojv654tnuu0ujjsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNfEXk8w5g5LVw0rukoEje9-lI2TiCzGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577425908572-rcke0hoi9a2ljus0ojv654tnuu0ujjsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
