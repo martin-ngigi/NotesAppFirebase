@@ -1,25 +1,29 @@
-package com.example.notesappfirebase.presentation.viewmodel
+package com.example.notesappfirebase.presentation.ui.note
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.notesappfirebase.data.models.Note
+
 import com.example.notesappfirebase.data.repository.NoteRepository
 import com.example.notesappfirebase.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteViewModel @Inject constructor(
-    val repository: NoteRepository
+    private val repository: NoteRepository
 ): ViewModel() {
 
     private val _notes = MutableLiveData<UiState<List<Note>>>()
     val note: LiveData<UiState<List<Note>>>
         get() = _notes
 
-    private val _addNote = MutableLiveData<UiState<String>>()
-    val addNote: LiveData<UiState<String>>
+    private val _addNote = MutableLiveData<UiState<Pair<Note,String>>>()
+    val addNote: LiveData<UiState<Pair<Note,String>>>
         get() = _addNote
 
     private val _updateNote = MutableLiveData<UiState<String>>()
@@ -45,9 +49,23 @@ class NoteViewModel @Inject constructor(
         repository.updateNote(note) { _updateNote.value = it }
     }
 
-    fun deleteNote(note: Note) {
+    fun deleteNote(note: Note){
         _deleteNote.value = UiState.Loading
         repository.deleteNote(note) { _deleteNote.value = it }
+    }
+
+    fun onUploadSingleFile(fileUris: Uri, onResult: (UiState<Uri>) -> Unit){
+        onResult.invoke(UiState.Loading)
+        viewModelScope.launch {
+            repository.uploadSingleFile(fileUris,onResult)
+        }
+    }
+
+    fun onUploadMultipleFile(fileUris: List<Uri>, onResult: (UiState<List<Uri>>) -> Unit){
+        onResult.invoke(UiState.Loading)
+        viewModelScope.launch {
+            repository.uploadMultipleFile(fileUris,onResult)
+        }
     }
 
 }

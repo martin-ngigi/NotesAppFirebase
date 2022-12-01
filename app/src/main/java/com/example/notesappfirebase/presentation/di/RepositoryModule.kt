@@ -3,6 +3,7 @@ package com.example.notesappfirebase.presentation.di
 import com.example.notesappfirebase.data.repository.NoteRepository
 import com.example.notesappfirebase.data.repository.NoteRepositoryImp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.StorageReference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,9 +16,10 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesNoteRepository(
-        database: FirebaseFirestore
+    fun provideNoteRepository(
+        database: FirebaseFirestore,
+        storageReference: StorageReference
     ): NoteRepository{
-        return NoteRepositoryImp(database)
+        return NoteRepositoryImp(database,storageReference)
     }
 }

@@ -22,4 +22,6 @@
     <string name="create">Create</string>
     <string name="done">Done</string>
     <string name="error_task_detail">Task detail is missing</string>
+    <string name="note_item_desc_placholder">In this chapter, you’re going to learn about the different types of subjects in RxJava, see how to work with each one and why you might choose one over another based on some common use cases.</string>
+
 </resources>

@@ -6,10 +6,14 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 
-@Parcelize //pass data btwn fragments
+@Parcelize
 data class Note(
     var id: String = "",
-    val text: String = "",
+    var user_id: String = "",
+    val title: String = "",
+    val description: String = "",
+    val tags: MutableList<String> = arrayListOf(),
+    val images: List<String> = arrayListOf(),
     @ServerTimestamp
     val date: Date = Date(),
-): Parcelable
+) : Parcelable
