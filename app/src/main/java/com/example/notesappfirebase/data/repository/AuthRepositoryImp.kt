@@ -107,4 +107,36 @@ class AuthRepositoryImp(
                 result.invoke(null)
             }
     }
+
+    override fun loginUser(email: String, password: String, result: (UiState<String>) -> Unit) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful){
+                    storeSession(id = task.result.user?.uid ?: ""){
+                        if (it == null){
+                            result.invoke(UiState.Failure("Failed to store ocal session"))
+                        }
+                        else{
+                            result.invoke(UiState.Success("Login Successfully."))
+
+                        }
+                    }
+                }
+
+            }
+            .addOnFailureListener{
+                result.invoke(UiState.Failure("Authentication failed, check email and password"))
+            }
+    }
+
+    override fun getSession(result: (User?) -> Unit) {
+        val user_str = appPreferences.getString(SharedPrefConstants.USER_SESSION, null)
+        if (user_str == null){
+            result.invoke(null)
+        }
+        else{
+            val user = gson.fromJson(user_str, User::class.java)
+            result.invoke(user)
+        }
+    }
 }
