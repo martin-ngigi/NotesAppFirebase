@@ -114,7 +114,7 @@ class AuthRepositoryImp(
                 if (task.isSuccessful){
                     storeSession(id = task.result.user?.uid ?: ""){
                         if (it == null){
-                            result.invoke(UiState.Failure("Failed to store ocal session"))
+                            result.invoke(UiState.Failure("Failed to store local session"))
                         }
                         else{
                             result.invoke(UiState.Success("Login Successfully."))
@@ -125,7 +125,7 @@ class AuthRepositoryImp(
 
             }
             .addOnFailureListener{
-                result.invoke(UiState.Failure("Authentication failed, check email and password"))
+                result.invoke(UiState.Failure("Authentication failed, check email and password\nHint: ${it.toString()}"))
             }
     }
 
@@ -138,5 +138,11 @@ class AuthRepositoryImp(
             val user = gson.fromJson(user_str, User::class.java)
             result.invoke(user)
         }
+    }
+
+    override fun logout(result: () -> Unit) {
+        auth.signOut()
+        appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,null).apply()
+        result.invoke()
     }
 }

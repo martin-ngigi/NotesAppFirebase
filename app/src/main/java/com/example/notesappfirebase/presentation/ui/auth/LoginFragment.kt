@@ -9,10 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.notesappfirebase.R
 import com.example.notesappfirebase.databinding.FragmentLoginBinding
-import com.example.notesappfirebase.util.UiState
-import com.example.notesappfirebase.util.hide
-import com.example.notesappfirebase.util.show
-import com.example.notesappfirebase.util.toast
+import com.example.notesappfirebase.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,9 +30,24 @@ class LoginFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observer()
+        //login button
+        binding.loginBtn.setOnClickListener{
+            if (validation()){
+                viewModel.login(
+                    email = binding.emailEt.text.toString(),
+                    password = binding.passEt.text.toString()
+                )
+            }
+        }
+
+        //register button
+        binding.registerLabel.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
     }
 
-    fun observer(){
+    private fun observer(){
         viewModel.login.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
@@ -55,6 +67,30 @@ class LoginFragment: Fragment() {
                 }
             }
         }
+    }
+
+    private fun validation(): Boolean {
+        var isValid = true
+
+        if (binding.emailEt.text.isNullOrEmpty()){
+            isValid = false
+            toast(getString(R.string.enter_email))
+        }else{
+            if (!binding.emailEt.text.toString().isValidEmail()){
+                isValid = false
+                toast(getString(R.string.invalid_email))
+            }
+        }
+        if (binding.passEt.text.isNullOrEmpty()){
+            isValid = false
+            toast(getString(R.string.enter_password))
+        }else{
+            if (binding.passEt.text.toString().length < 8){
+                isValid = false
+                toast(getString(R.string.invalid_password))
+            }
+        }
+        return isValid
     }
 
     override fun onStart() {

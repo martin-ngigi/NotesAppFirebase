@@ -9,4 +9,5 @@ interface AuthRepository {
     fun storeSession(id: String, result: (User?) -> Unit)
     fun loginUser(email: String, password: String, result: (UiState<String>) -> Unit)
     fun getSession(result: (User?) -> Unit)
+    fun logout(result: () -> Unit)
 }
