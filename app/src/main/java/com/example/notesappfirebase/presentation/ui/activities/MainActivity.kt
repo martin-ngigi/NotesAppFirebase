@@ -28,30 +28,16 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         navController = navHostFragment.navController
 
-        //addTestDataToFireStore()
-
-
-
     }
 
-    private fun addTestDataToFireStore() {
-
-
-        val user: MutableMap<String, Any> = HashMap()
-        user["first"] = "Martin"
-        user["last"] = "Wainaina"
-        user["born"] = 1999
-
-        FirebaseFirestore.getInstance().collection("users")
-            .add(user)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Adding data success", Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "Adding data success")
-            }
-            .addOnFailureListener{
-                Toast.makeText(this, "Adding data failed\n" +
-                        "Hint:${it.message}", Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "Adding data failed. \nHint:${it.message}")
-            }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (navController.currentDestination?.id == R.id.loginFragment){
+            moveTaskToBack(true)
+        }else{
+            super.onBackPressed()
+        }
     }
+
+
 }
