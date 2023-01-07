@@ -1,11 +1,9 @@
 package com.example.notesappfirebase.presentation.di
 
 import android.content.SharedPreferences
-import com.example.notesappfirebase.data.repository.AuthRepository
-import com.example.notesappfirebase.data.repository.AuthRepositoryImp
-import com.example.notesappfirebase.data.repository.NoteRepository
-import com.example.notesappfirebase.data.repository.NoteRepositoryImp
+import com.example.notesappfirebase.data.repository.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import com.google.gson.Gson
@@ -37,5 +35,13 @@ object RepositoryModule {
         gson: Gson
     ): AuthRepository{
         return AuthRepositoryImp(auth, database, appPreferences, gson)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTaskRepository(
+        database: FirebaseDatabase
+    ): TaskRepository{
+        return TaskRepositoryImp(database)
     }
 }

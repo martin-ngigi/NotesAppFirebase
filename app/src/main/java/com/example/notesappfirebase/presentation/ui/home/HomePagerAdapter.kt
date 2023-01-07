@@ -3,6 +3,7 @@ package com.example.notesappfirebase.presentation.ui.home
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.notesappfirebase.presentation.ui.note.NoteListingFragment
+import com.example.notesappfirebase.presentation.ui.task.TaskListingFragment
 import com.example.notesappfirebase.util.HomeTabs
 
 class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -12,6 +13,7 @@ class HomePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             HomeTabs.NOTES.index -> NoteListingFragment.newInstance(HomeTabs.NOTES.name)
+            HomeTabs.TASKS.index -> TaskListingFragment.newInstance(HomeTabs.TASKS.name)
             else -> throw IllegalStateException("Fragment not found")
         }
     }
