@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesappfirebase.R
+import com.example.notesappfirebase.data.models.Task
 import com.example.notesappfirebase.databinding.FragmentTaskListingBinding
 import com.example.notesappfirebase.presentation.ui.auth.AuthViewModel
 import com.example.notesappfirebase.util.UiState
@@ -16,6 +17,7 @@ import com.example.notesappfirebase.util.hide
 import com.example.notesappfirebase.util.show
 import com.example.notesappfirebase.util.toast
 import dagger.hilt.android.AndroidEntryPoint
+
 private const val ARG_PARAM1 = "param1"
 
 @AndroidEntryPoint
@@ -28,6 +30,7 @@ class TaskListingFragment : Fragment() {
     lateinit var binding: FragmentTaskListingBinding
     val adapter by lazy{
         TaskListingAdapter(
+            onItemClicked = { pos, item -> onTaskClicked(item)},
             onDeleteClicked = { pos, item -> }
         )
     }
@@ -90,6 +93,18 @@ class TaskListingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun onTaskClicked(task: Task){
+        val createTaskFragmentSheet = CreateTaskFragment(task)
+        createTaskFragmentSheet.setDismissListener {
+            if (it) {
+                authViewModel.getSession {
+                    viewModel.getTasks(it)
+                }
+            }
+        }
+        createTaskFragmentSheet.show(childFragmentManager,"create_task")
     }
 
     companion object {
