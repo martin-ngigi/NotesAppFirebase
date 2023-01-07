@@ -45,6 +45,10 @@ class LoginFragment: Fragment() {
         binding.registerLabel.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+        binding.forgotPassLabel.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
     }
 
     private fun observer(){

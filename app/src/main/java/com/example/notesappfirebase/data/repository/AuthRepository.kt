@@ -10,4 +10,5 @@ interface AuthRepository {
     fun loginUser(email: String, password: String, result: (UiState<String>) -> Unit)
     fun getSession(result: (User?) -> Unit)
     fun logout(result: () -> Unit)
+    fun forgotPassword(email: String, result: (UiState<String>) -> Unit)
 }

@@ -145,4 +145,19 @@ class AuthRepositoryImp(
         appPreferences.edit().putString(SharedPrefConstants.USER_SESSION,null).apply()
         result.invoke()
     }
+
+    override fun forgotPassword(email: String, result: (UiState<String>) -> Unit) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful){
+                    result.invoke(UiState.Success("Email has been sent"))
+                }
+                else{
+                    result.invoke(UiState.Failure(task.exception?.message))
+                }
+            }
+            .addOnFailureListener{
+                result.invoke(UiState.Failure("Authentication failed check your email and try again. \nHint ${it.message}"))
+            }
+    }
 }
