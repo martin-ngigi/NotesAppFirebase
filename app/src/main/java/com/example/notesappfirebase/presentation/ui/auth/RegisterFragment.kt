@@ -59,7 +59,7 @@ class RegisterFragment: Fragment() {
                     binding.registerBtn.setText("Register")
                     binding.registerProgress.hide()
                     toast(state.data)
-                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_home_navigation)
                 }
             }
         }

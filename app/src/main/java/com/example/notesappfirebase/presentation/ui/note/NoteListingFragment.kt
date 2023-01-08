@@ -30,7 +30,7 @@ class NoteListingFragment : Fragment() {
     val adapter by lazy {
         NoteListingAdapter(
             onItemClicked = { pos, item ->
-                findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3,Bundle().apply {
+                findNavController().navigate(R.id.action_noteListingFragment_to_noteDetailFragment,Bundle().apply {
                     putParcelable("note",item)
                 })
             }
@@ -63,7 +63,7 @@ class NoteListingFragment : Fragment() {
         binding.recyclerView.layoutManager = staggeredGridLayoutManager
         binding.recyclerView.adapter = adapter
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3)
+            findNavController().navigate(R.id.action_noteListingFragment_to_noteDetailFragment)
         }
 
 
